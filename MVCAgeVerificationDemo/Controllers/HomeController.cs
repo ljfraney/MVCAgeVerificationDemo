@@ -1,30 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace MVCAgeVerificationDemo.Controllers
 {
     public class HomeController : Controller
-    {
+    {        
+        // The VerifyAge attribute can be placed on an action, or a controller if you want to apply
+        // it to all actions in that controller.
+        [VerifyAge]
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        [HttpGet]
+        public ActionResult Page2()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult ResetAgeVerification()
         {
-            ViewBag.Message = "Your contact page.";
+            // Remove the session variable.
+            if (Session["AgeVerified"] != null)
+                Session.Remove("AgeVerified");
 
-            return View();
+            // Redirect the user back to Home/Index. This will run the VerifyAge attribute code which
+            // will send them to the VerifyAge/Index view.
+            return RedirectToAction("Index");
         }
+
+
     }
 }

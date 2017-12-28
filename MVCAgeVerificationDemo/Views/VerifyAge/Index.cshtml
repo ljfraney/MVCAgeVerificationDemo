@@ -1,0 +1,53 @@
+﻿@model MVCAgeVerificationDemo.Models.AgeVerificationViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Age Verification</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <h2>Age Verification</h2>
+                <p>
+                    This site requires you to be 21 years of age or older to enter. Please enter your Date of Birth in the fiels below to continue:
+                </p>
+                @using (Html.BeginForm())
+                {
+                    @Html.HiddenFor(m => m.RedirectUrl)
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Month)
+                        @Html.DropDownListFor(m => m.Month, Model.AvailableMonths, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Month, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Day)
+                        @Html.TextBoxFor(m => m.Day, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Day, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Year)
+                        @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Year, null, new { @class = "text-danger" })
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                }
+                <br />
+                @Html.ValidationSummary(null, new { @class = "bg-danger text-danger" })
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+</body>
+</html>
